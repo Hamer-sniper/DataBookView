@@ -1,0 +1,32 @@
+﻿@model IEnumerable<DataBookView.Authentification.User>
+
+<div align="center">
+    <h2>Список пользователей</h2>
+    <table class="table">
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>
+                    @user.UserName
+                </td>
+                <td>
+                    <a class="btn btn-sm btn-primary" asp-action="GetUserAndRoles" asp-route-userid="@user.UserName">Права доступа</a>
+                </td>
+                <td>
+                    @if (user.UserName == "Administrator")
+                    {
+                        <div>Удаление запрещено</div>
+                    }
+                    else
+                    {                      
+                        <form asp-action="DeleteUser" asp-route-userid="@user.UserName">
+                            <button type="submit" class="btn btn-sm btn-danger">Удалить пользователя</button>
+                        </form>
+                    }
+                </td>
+            </tr>
+        }
+    </table>
+
+    <p><a asp-action="Index">Назад</a></p>
+</div>
