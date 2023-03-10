@@ -2,6 +2,7 @@
 using DataBookView.Models;
 using DataBookView.Interfaces;
 using Microsoft.AspNetCore.Authorization;
+using DataBookView.Roles;
 
 namespace DataBookView.Controllers
 {
@@ -26,9 +27,18 @@ namespace DataBookView.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            AddTokenToHeader();
+            ChangeRole currentUser = null;
+
             ViewBag.DataBook = _dataBookData.GetAllDatabooks();
-            return View();
+
+            var token = HttpContext.Request.Cookies[".AspNetCore.Application.Id"];
+            if (!string.IsNullOrEmpty(token))
+            {
+                _dataBookData.AddTokenToClient(token);
+                currentUser = _dataBookData.GetCurrentUser();
+            }
+
+            return View(currentUser);
         }
 
         [HttpGet]

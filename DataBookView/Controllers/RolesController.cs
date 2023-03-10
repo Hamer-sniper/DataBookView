@@ -46,7 +46,7 @@ namespace DataBookView.Controllers
             if (!string.IsNullOrEmpty(name))
                 _dataBookData.CreateRole(name);
 
-            return View(name);
+            return RedirectToAction("Index");
         }
 
         [HttpPost]
@@ -67,21 +67,21 @@ namespace DataBookView.Controllers
             return View(_dataBookData.UserList());
         }
 
-        public async Task<IActionResult> DeleteUser(string name)
+        public async Task<IActionResult> DeleteUser(string userName)
         {
             AddTokenToHeader();
 
-            if (!string.IsNullOrEmpty(name))
-                _dataBookData.DeleteUser(name);
+            if (!string.IsNullOrEmpty(userName))
+                _dataBookData.DeleteUser(userName);
 
             return RedirectToAction("UserList");
         }
 
-        public async Task<IActionResult> GetUserAndRoles(string name)
+        public async Task<IActionResult> GetUserAndRoles(string userName)
         {
             AddTokenToHeader();
 
-            return View(_dataBookData.GetUserAndRoles(name));
+            return View(_dataBookData.GetUserAndRoles(userName));
         }
 
         [HttpPost]

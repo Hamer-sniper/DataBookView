@@ -1,0 +1,38 @@
+﻿@{
+    ViewData["Title"] = "GetUserAndRoles";
+}
+@using Microsoft.AspNetCore.Identity
+@model DataBookView.Roles.ChangeRole
+
+<div align="center">
+    @if (Model.UserName == "Administrator")
+    {
+        <h2>Изменение ролей для пользователя @Model.UserName запрещены!</h2>
+    }
+    else
+    {
+        <h2>Изменение ролей для пользователя @Model.UserName</h2>
+
+        <form asp-action="EditUserAndRoles" method="post">
+            <input type="hidden" name="userName" value="@Model.UserName" />
+            <div class="form-group">
+                <table class="table">
+                    @foreach (IdentityRole role in Model.AllRoles)
+                    {
+                        <tr>
+                            <td>
+                                <input type="checkbox" name="roles" value="@role.Name"
+                               @(Model.UserRoles.Contains(role.Name) ? "checked=\"checked\"" : "") />
+                            </td>
+                            <td>
+                                @role.Name <br />
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+            <p><button type="submit" class="btn btn-primary">Сохранить</button></p>
+        </form>
+    }
+    <p><a asp-action="UserList">Назад</a></p>
+</div>

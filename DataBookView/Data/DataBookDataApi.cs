@@ -67,7 +67,19 @@ namespace DataBookView.Controllers
         /// <param name="name">Имя</param>
         public ChangeRole GetUserAndRoles(string name)
         {
-            string url = "https://localhost:7177/api/RolesApi/EditUserAndRoles/" + name;
+            string url = "https://localhost:7177/api/RolesApi/GetUserAndRoles/" + name;
+
+            string json = httpClient.GetStringAsync(url).Result;
+
+            return JsonConvert.DeserializeObject<ChangeRole>(json);
+        }
+
+        /// <summary>
+        /// Получить текущего пользователя.
+        /// </summary>
+        public ChangeRole GetCurrentUser()
+        {
+            string url = "https://localhost:7177/api/RolesApi/GetCurrentUser/";
 
             string json = httpClient.GetStringAsync(url).Result;
 
@@ -76,7 +88,7 @@ namespace DataBookView.Controllers
 
         public List<string> EditUserAndRoles(string userName, List<string> roles)
         {
-            string url = "https://localhost:7177/api/RolesApi/GetUserAndRoles/" + userName;
+            string url = "https://localhost:7177/api/RolesApi/EditUserAndRoles/" + userName;
 
             var request = httpClient.PostAsync(
                 requestUri: url,

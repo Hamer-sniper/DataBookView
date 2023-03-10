@@ -1,4 +1,7 @@
-﻿@model IEnumerable<DataBookView.Authentification.User>
+﻿@{
+    ViewData["Title"] = "UserList";
+}
+@model IEnumerable<DataBookView.Authentification.User>
 
 <div align="center">
     <h2>Список пользователей</h2>
@@ -10,7 +13,7 @@
                     @user.UserName
                 </td>
                 <td>
-                    <a class="btn btn-sm btn-primary" asp-action="GetUserAndRoles" asp-route-userid="@user.UserName">Права доступа</a>
+                    <a class="btn btn-sm btn-primary" asp-action="GetUserAndRoles" asp-route-userName="@user.UserName">Права доступа</a>
                 </td>
                 <td>
                     @if (user.UserName == "Administrator")
@@ -18,8 +21,8 @@
                         <div>Удаление запрещено</div>
                     }
                     else
-                    {                      
-                        <form asp-action="DeleteUser" asp-route-userid="@user.UserName">
+                    {
+                        <form asp-action="DeleteUser" asp-route-userName="@user.UserName">
                             <button type="submit" class="btn btn-sm btn-danger">Удалить пользователя</button>
                         </form>
                     }

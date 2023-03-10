@@ -114,5 +114,11 @@ namespace DataBookView.Interfaces
         /// <param name="roles"></param>
         /// <returns></returns>
         List<string> EditUserAndRoles(string userName, List<string> roles);
+
+        /// <summary>
+        /// Получить текущего пользователя.
+        /// </summary>
+        /// <returns></returns>
+        ChangeRole GetCurrentUser();
     }
 }
